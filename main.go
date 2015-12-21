@@ -74,7 +74,7 @@ func buildAndServe() (*exec.Cmd, error) {
 
 func checkError(err error) {
 	if err != nil {
-		fmt.Errorf(err)
+		fmt.Errorf("%v", err)
 	}
 }
 
