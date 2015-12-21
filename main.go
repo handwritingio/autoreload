@@ -20,14 +20,12 @@ var (
 	godocs = app.Flag("godocs", "Run godocs server").Short('d').Bool()
 
 	cmd         = app.Flag("command", "Command arguments for running").PlaceHolder("serve").Short('c').String()
-	targetBuild = app.Flag("build", "Target file to build to and run").PlaceHolder("./binary").Short('b').Default("./build").String()
-	targetFile  = app.Flag("file", "File name to build against").PlaceHolder("main.go").Short('f').String()
+	targetBuild = app.Flag("build", "Target file to build to and run").PlaceHolder("./binary").Default("./build").String()
+	targetFile  = app.Flag("file", "File name to build against").PlaceHolder("main.go").String()
+	resetPort   = app.Flag("reset-port", "Port to listen for reset signal").PlaceHolder("12345").Short('r').Default("12345").Int()
 )
 
-const (
-	resetPort = 12345
-	godocPort = 9000
-)
+const godocPort = 9000
 
 func serveGodoc() *exec.Cmd {
 	fmt.Println("Starting godoc server on port", godocPort)
@@ -86,7 +84,7 @@ func main() {
 			defer godoc.Process.Kill()
 		}
 	}
-	l, err := net.Listen("tcp", fmt.Sprintf(":%d", resetPort))
+	l, err := net.Listen("tcp", fmt.Sprintf(":%d", *resetPort))
 	checkError(err)
 	defer l.Close()
 

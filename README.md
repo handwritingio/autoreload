@@ -83,11 +83,12 @@ usage: autoreload [<flags>]
 Autoreload functionality
 
 Flags:
-      --help            Show context-sensitive help (also try --help-long and --help-man).
-  -d, --godocs          Run godocs server
-  -c, --command=serve   Command arguments for running
-  -b, --build=./binary  Target file to build to and run
-  -f, --file=main.go    File name to build against
+      --help              Show context-sensitive help (also try --help-long and --help-man).
+  -d, --godocs            Run godocs server
+  -c, --command=serve     Command arguments for running
+      --build=./binary    Target file to build to and run
+      --file=main.go      File name to build against
+  -r, --reset-port=12345  Port to listen for reset signal
 ```
 
 ***
@@ -116,3 +117,11 @@ To run with command line arguments for your application (default: None)
 $GOPATH/bin/autoreload -c run
 ```
 
+To run with custom reset port (default: `12345`)
+```
+$GOPATH/bin/autoreload -r 12346
+```
+**You'll need to run the watcher with a the same port**
+```
+./watcher.sh 12346
+```

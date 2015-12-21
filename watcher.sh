@@ -29,6 +29,9 @@ get_ip() {
 
 
 RESET_PORT=12345
+if [ -n $RESET_PORT ]; then
+    RESET_PORT=$1
+fi
 
 wait_for_changes() {
     echo 'Waiting for changes'
